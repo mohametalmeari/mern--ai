@@ -11,10 +11,13 @@
   gap: 2rem;
   position: fixed;
   transition: all 0.3s;
-  transform: translateX(-100%);
   top: 0;
   left: 0;
   bottom: 0;
+}
+
+.sidebar:not(._open) {
+  transform: translateX(-100%);
 }
 
 .logo {
@@ -97,12 +100,23 @@
   align-items: center;
 }
 
+.menu-icon {
+  cursor: pointer;
+}
+
 .close-menu-icon {
   position: absolute;
   right: 0;
   top: 0;
   margin: 0.5rem;
   font-size: 1.25rem;
+  cursor: pointer;
+  color: #aaa;
+  transition: all 0.2s;
+}
+
+.close-menu-icon:hover {
+  color: white;
 }
 
 .home-page {
@@ -225,6 +239,10 @@
 
   .close-menu-icon {
     display: none;
+  }
+
+  .sidebar:not(._open) {
+    transform: none;
   }
 
   .home-page .hero-section {
