@@ -1,6 +1,7 @@
 import { Outlet, Route, Routes } from "react-router-dom";
 import "./App.css";
 import {
+  CodeGeneration,
   Conversation,
   Dashboard,
   Home,
@@ -23,7 +24,7 @@ function App() {
           <Route path="image-generation" Component={ImageGeneration} />
           <Route path="video-generation" Component={VideoGeneration} />
           <Route path="music-generation" Component={MusicGeneration} />
-          <Route path="code-generation" Component={MusicGeneration} />
+          <Route path="code-generation" Component={CodeGeneration} />
           <Route path="settings" Component={Settings} />
         </Route>
       </Route>
