@@ -48,7 +48,7 @@ export const Sidebar = () => {
     <nav className="sidebar">
       <IoClose className="close-menu-icon" />
       <a href="/">
-        <div className="sidebar-logo">
+        <div className="logo">
           <img src="/logo.webp" alt="genius" />
           Genius
         </div>

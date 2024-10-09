@@ -2,6 +2,8 @@
 
 :root {
   --primary-color: rgb(17, 24, 39);
+  --grad-start-color: rgb(109, 14, 233);
+  --grad-end-color: rgb(190, 24, 93);
 }
 
 * {
@@ -13,6 +15,7 @@
   text-decoration: inherit;
   color: inherit;
   font-size: inherit;
+  font-weight: inherit;
 }
 
 svg {
