@@ -63,9 +63,12 @@ export const Login = async (req, res) => {
     const { email, password } = req.body;
 
     const user = await getUserByEmail(email).select(
-      "+auth.salt +auth.password"
+      "+auth.salt +auth.password +auth.verified"
     );
     if (!user) return res.status(404).json({ error: "Invalid email" });
+
+    if (!user.auth.verified)
+      return res.status(400).json({ error: "Account not verified" });
 
     const expectedHash = hash(user.auth.salt, password);
     if (user.auth.password !== expectedHash)
@@ -94,7 +97,7 @@ export const Logout = async (req, res) => {
   try {
     const user = req.identity;
 
-    res.cookie("AUTH", undefined);
+    res.clearCookie("AUTH");
 
     if (user) {
       user.auth.sessionToken = undefined;
