@@ -6,12 +6,16 @@ import compression from "compression";
 import cors from "cors";
 import mongoose from "mongoose";
 
+import router from "./router";
+
 const app = express();
 
 app.use(cookieParser());
 app.use(compression());
 app.use(cors({ credentials: true }));
 app.use(express.json());
+
+app.use("/api/", router());
 
 mongoose.connect(process.env.MONGODB_URL);
 const db = mongoose.connection;
