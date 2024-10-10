@@ -8,7 +8,7 @@ export const Conversation = () => {
 
     console.log({ message });
   };
-  
+
   return (
     <main className="page">
       <div className="page-header">
@@ -30,7 +30,7 @@ export const Conversation = () => {
           placeholder="Ask me anything ..."
           className="-field"
         />
-        <button type="submit" className="-btn">
+        <button type="submit" className="form-btn">
           Generate
         </button>
       </form>

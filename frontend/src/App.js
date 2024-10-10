@@ -12,6 +12,14 @@ import {
   Settings,
   VideoGeneration,
 } from "./pages";
+import {
+  ResetPassword,
+  SignIn,
+  SignUp,
+  Verify,
+  ForgotPassword,
+  Layout as AuthLayout,
+} from "./pages/auth";
 
 function App() {
   return (
@@ -26,6 +34,14 @@ function App() {
           <Route path="music-generation" Component={MusicGeneration} />
           <Route path="code-generation" Component={CodeGeneration} />
           <Route path="settings" Component={Settings} />
+        </Route>
+
+        <Route path="/" Component={AuthLayout}>
+          <Route path="sign-up" Component={SignUp} />
+          <Route path="sign-in" Component={SignIn} />
+          <Route path="verify/:token" Component={Verify} />
+          <Route path="reset-password/:token" Component={ResetPassword} />
+          <Route path="forgot-password" Component={ForgotPassword} />
         </Route>
       </Route>
       <Route path="*" Component={NotFound} />

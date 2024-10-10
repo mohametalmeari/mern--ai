@@ -39,7 +39,7 @@ export const Home = () => {
             Genius
           </div>
         </a>
-        <Link to={"/dashboard"} className="button _secondary _rounded">
+        <Link to={"/sign-up"} className="button _secondary _rounded">
           Get Started
         </Link>
       </nav>
@@ -59,7 +59,7 @@ export const Home = () => {
 
         <div className="call-to-action-wrapper">
           <h2>Create content using AI 10x faster.</h2>
-          <Link to={"/dashboard"} className="button _primary _rounded">
+          <Link to={"/sign-up"} className="button _primary _rounded">
             Start Generating For Free
           </Link>
           <h2>No credit card required.</h2>
