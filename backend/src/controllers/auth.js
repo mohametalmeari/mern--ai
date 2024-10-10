@@ -5,6 +5,11 @@ import {
   getUserByVerificationToken,
 } from "../db/users";
 import { hash, random, token } from "../helpers/auth";
+import {
+  sendMail,
+  sendResetPasswordMail,
+  sendVerificationMail,
+} from "../helpers/mails";
 
 export const Register = async (req, res) => {
   try {
@@ -25,7 +30,9 @@ export const Register = async (req, res) => {
       auth: { salt, password: hash(salt, password), verificationToken },
     });
 
-    return res.status(201).json({ verificationToken });
+    await sendVerificationMail(email, verificationToken);
+
+    return res.status(201).json({ message: "User created" });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Internal error" });
@@ -150,7 +157,9 @@ export const ForgotPassword = async (req, res) => {
 
     await user.save();
 
-    return res.status(200).json({ resetToken });
+    await sendResetPasswordMail(email, resetToken);
+
+    return res.status(200).json({ message: "Reset link sent" });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Internal error" });
