@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { activateAccount, register, signIn, signOut } from "./reducers";
+import { checkAuth } from "./reducers/checkAuth";
 
 const name = "auth";
 
 const initialState = {
-  isAuthenticated: false,
+  isAuthenticated: undefined,
   authError: null,
   signedUp: false,
   verified: false,
@@ -72,7 +73,7 @@ const extraReducers = (builder) => {
         return;
       }
 
-      window.location.href = "/dashboard";
+      state.isAuthenticated = true;
     })
     .addCase(signIn.rejected, (state) => {
       state.loading = false;
@@ -98,6 +99,17 @@ const extraReducers = (builder) => {
     .addCase(signOut.rejected, (state) => {
       state.loading = false;
       state.authError = "Network error";
+    });
+
+  builder
+    .addCase(checkAuth.pending, (state) => {
+      state.isAuthenticated = undefined;
+    })
+    .addCase(checkAuth.fulfilled, (state, { payload }) => {
+      state.isAuthenticated = payload.in;
+    })
+    .addCase(checkAuth.rejected, (state) => {
+      state.isAuthenticated = false;
     });
 };
 

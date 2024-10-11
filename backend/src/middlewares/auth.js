@@ -25,6 +25,10 @@ export const attachIdentity = async (req, res, next) => {
   try {
     const sessionToken = req.cookies.AUTH;
 
+    if (!sessionToken) {
+      return next();
+    }
+
     const existingUser = await getUserBySessionToken(sessionToken);
 
     req.identity = existingUser;

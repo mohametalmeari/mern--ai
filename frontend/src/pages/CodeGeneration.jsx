@@ -31,7 +31,7 @@ export const CodeGeneration = () => {
           className="-field"
         />
 
-        <button type="submit" className="-btn">
+        <button type="submit" className="form-btn">
           Generate
         </button>
       </form>

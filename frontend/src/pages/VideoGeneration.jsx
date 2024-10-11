@@ -8,7 +8,7 @@ export const VideoGeneration = () => {
 
     console.log({ message });
   };
-  
+
   return (
     <main className="page">
       <div className="page-header">
@@ -31,7 +31,7 @@ export const VideoGeneration = () => {
           className="-field"
         />
 
-        <button type="submit" className="-btn">
+        <button type="submit" className="form-btn">
           Generate
         </button>
       </form>

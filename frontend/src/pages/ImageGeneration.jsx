@@ -51,7 +51,7 @@ export const ImageGeneration = () => {
           <option value="1024">High (1024x1024)</option>
         </select>
 
-        <button type="submit" className="-btn">
+        <button type="submit" className="form-btn">
           Generate
         </button>
       </form>
