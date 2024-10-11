@@ -25,13 +25,21 @@ const reducers = {
   },
 };
 
+const handleCaseRejected = (state) => {
+  state.loading = false;
+  state.authError = "Network error";
+};
+
+const handleCasePending = (state) => {
+  state.loading = true;
+  state.authError = null;
+  state.authSuccess = false;
+};
+
 const extraReducers = (builder) => {
   builder
-    .addCase(register.pending, (state) => {
-      state.loading = true;
-      state.authError = null;
-      state.authSuccess = false;
-    })
+    .addCase(register.pending, handleCasePending)
+    .addCase(register.rejected, handleCaseRejected)
     .addCase(register.fulfilled, (state, { payload }) => {
       state.loading = false;
 
@@ -41,17 +49,11 @@ const extraReducers = (builder) => {
       }
 
       state.authSuccess = !!payload?.success;
-    })
-    .addCase(register.rejected, (state) => {
-      state.loading = false;
-      state.authError = "Network error";
     });
 
   builder
-    .addCase(activateAccount.pending, (state) => {
-      state.loading = true;
-      state.authError = null;
-    })
+    .addCase(activateAccount.pending, handleCaseRejected)
+    .addCase(activateAccount.rejected, handleCaseRejected)
     .addCase(activateAccount.fulfilled, (state, { payload }) => {
       state.loading = false;
 
@@ -61,17 +63,11 @@ const extraReducers = (builder) => {
       }
 
       state.verified = !!payload?.success;
-    })
-    .addCase(activateAccount.rejected, (state) => {
-      state.loading = false;
-      state.authError = "Network error";
     });
 
   builder
-    .addCase(signIn.pending, (state) => {
-      state.loading = true;
-      state.authError = null;
-    })
+    .addCase(signIn.pending, handleCaseRejected)
+    .addCase(signIn.rejected, handleCaseRejected)
     .addCase(signIn.fulfilled, (state, { payload }) => {
       state.loading = false;
 
@@ -81,17 +77,11 @@ const extraReducers = (builder) => {
       }
 
       state.isAuthenticated = true;
-    })
-    .addCase(signIn.rejected, (state) => {
-      state.loading = false;
-      state.authError = "Network error";
     });
 
   builder
-    .addCase(signOut.pending, (state) => {
-      state.loading = true;
-      state.authError = null;
-    })
+    .addCase(signOut.pending, handleCaseRejected)
+    .addCase(signOut.rejected, handleCaseRejected)
     .addCase(signOut.fulfilled, (state, { payload }) => {
       state.loading = false;
 
@@ -102,29 +92,22 @@ const extraReducers = (builder) => {
 
       state.isAuthenticated = false;
       window.location.href = "/";
-    })
-    .addCase(signOut.rejected, (state) => {
-      state.loading = false;
-      state.authError = "Network error";
     });
 
   builder
     .addCase(checkAuth.pending, (state) => {
       state.isAuthenticated = undefined;
     })
-    .addCase(checkAuth.fulfilled, (state, { payload }) => {
-      state.isAuthenticated = payload.in;
-    })
     .addCase(checkAuth.rejected, (state) => {
       state.isAuthenticated = false;
+    })
+    .addCase(checkAuth.fulfilled, (state, { payload }) => {
+      state.isAuthenticated = payload.in;
     });
 
   builder
-    .addCase(forgotPassword.pending, (state) => {
-      state.loading = true;
-      state.authError = null;
-      state.authSuccess = false;
-    })
+    .addCase(forgotPassword.pending, handleCaseRejected)
+    .addCase(forgotPassword.rejected, handleCaseRejected)
     .addCase(forgotPassword.fulfilled, (state, { payload }) => {
       state.loading = false;
 
@@ -134,18 +117,11 @@ const extraReducers = (builder) => {
       }
 
       state.authSuccess = !!payload?.success;
-    })
-    .addCase(forgotPassword.rejected, (state) => {
-      state.loading = false;
-      state.authError = "Network error";
     });
 
   builder
-    .addCase(resetPassword.pending, (state) => {
-      state.loading = true;
-      state.authError = null;
-      state.authSuccess = false;
-    })
+    .addCase(resetPassword.pending, handleCaseRejected)
+    .addCase(resetPassword.rejected, handleCaseRejected)
     .addCase(resetPassword.fulfilled, (state, { payload }) => {
       state.loading = false;
 
@@ -155,10 +131,6 @@ const extraReducers = (builder) => {
       }
 
       state.authSuccess = !!payload?.success;
-    })
-    .addCase(resetPassword.rejected, (state) => {
-      state.loading = false;
-      state.authError = "Network error";
     });
 };
 
