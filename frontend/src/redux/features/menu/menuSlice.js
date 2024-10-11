@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const name = "menu";
 
 const initialState = {
-  isOpen: true,
+  isOpen: false,
 };
 
 const reducers = {

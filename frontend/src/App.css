@@ -15,6 +15,7 @@
   left: 0;
   bottom: 0;
   min-width: 15rem;
+  z-index: 999;
 }
 
 .sidebar:not(._open) {
@@ -274,21 +275,23 @@
 }
 
 .page-header>.-text>h1 {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
 
 .page-header>.-text>h2 {
+  font-size: 0.8rem;
   color: #999;
 }
 
 .generate-form {
   border: solid 1px rgba(0, 0, 0, 0.1);
-  padding: 1rem 2rem;
+  padding: 1rem;
   border-radius: 0.5rem;
   display: flex;
-  gap: 0.5rem;
+  gap: 1rem;
+  flex-direction: column;
 }
 
 .generate-form>.-field {
@@ -440,30 +443,50 @@ button:active:disabled {
     gap: 1.5rem;
   }
 
-  .dashboard-page {
-    margin-left: 5rem;
-    margin-right: 5rem;
-  }
-
-
   .dashboard-header>h1 {
-    font-size: 2.75rem;
-    font-weight: 600;
+    font-size: 2.5rem;
   }
 
   .dashboard-header>h2 {
-    color: #999;
-    font-size: 1.25rem;
+    font-size: 1rem;
+  }
+
+  .page-header>.-text>h1 {
+    font-size: 1.75rem;
+  }
+
+  .page-header>.-text>h2 {
+    font-size: 1rem;
   }
 }
 
 @media screen and (min-width: 1024px) {
+  .dashboard-header>h1 {
+    font-size: 2.75rem;
+  }
+
+  .dashboard-header>h2 {
+    font-size: 1.25rem;
+  }
 
   .home-page .hero-section {
     font-size: 4.5rem;
     gap: 2rem;
   }
 
+  .dashboard-page {
+    margin-left: 5rem;
+    margin-right: 5rem;
+  }
+
+  .generate-form {
+    padding: 1rem 2rem;
+    gap: 0.5rem;
+    flex-direction: row;
+  }
+}
+
+@media screen and (min-width: 1440px) {
   .dashboard-page {
     margin-left: 10rem;
     margin-right: 10rem;

@@ -14,7 +14,7 @@ Content-Type: application/json
 
 {
   "email": "mohamet.almeari@gmail.com",
-  "password": "abc123+"
+  "password": "123456"
 }
 
 ### Logout

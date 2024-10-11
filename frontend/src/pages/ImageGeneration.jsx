@@ -14,7 +14,7 @@ export const ImageGeneration = () => {
 
     console.log({ message, number, size });
   };
-  
+
   return (
     <main className="page">
       <div className="page-header">
