@@ -180,7 +180,7 @@ export const ResetPassword = async (req, res) => {
       "+auth.salt +auth.password +auth.resetToken +auth.resetTokenExpires"
     );
 
-    if (!user) return res.status(404).json({ error: "Invalid token" });
+    if (!user) return res.status(404).json({ error: "Invalid link" });
 
     if (user.auth.resetTokenExpires < new Date())
       return res.status(400).json({ error: "Reset link expired" });

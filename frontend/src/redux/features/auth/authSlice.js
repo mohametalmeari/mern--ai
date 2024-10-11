@@ -1,5 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { activateAccount, register, signIn, signOut } from "./reducers";
+import {
+  activateAccount,
+  forgotPassword,
+  register,
+  resetPassword,
+  signIn,
+  signOut,
+} from "./reducers";
 import { checkAuth } from "./reducers/checkAuth";
 
 const name = "auth";
@@ -7,7 +14,7 @@ const name = "auth";
 const initialState = {
   isAuthenticated: undefined,
   authError: null,
-  signedUp: false,
+  authSuccess: false,
   verified: false,
   loading: false,
 };
@@ -23,7 +30,7 @@ const extraReducers = (builder) => {
     .addCase(register.pending, (state) => {
       state.loading = true;
       state.authError = null;
-      state.signedUp = false;
+      state.authSuccess = false;
     })
     .addCase(register.fulfilled, (state, { payload }) => {
       state.loading = false;
@@ -33,7 +40,7 @@ const extraReducers = (builder) => {
         return;
       }
 
-      state.signedUp = !!payload?.success;
+      state.authSuccess = !!payload?.success;
     })
     .addCase(register.rejected, (state) => {
       state.loading = false;
@@ -110,6 +117,48 @@ const extraReducers = (builder) => {
     })
     .addCase(checkAuth.rejected, (state) => {
       state.isAuthenticated = false;
+    });
+
+  builder
+    .addCase(forgotPassword.pending, (state) => {
+      state.loading = true;
+      state.authError = null;
+      state.authSuccess = false;
+    })
+    .addCase(forgotPassword.fulfilled, (state, { payload }) => {
+      state.loading = false;
+
+      if (payload?.error) {
+        state.authError = payload.error;
+        return;
+      }
+
+      state.authSuccess = !!payload?.success;
+    })
+    .addCase(forgotPassword.rejected, (state) => {
+      state.loading = false;
+      state.authError = "Network error";
+    });
+
+  builder
+    .addCase(resetPassword.pending, (state) => {
+      state.loading = true;
+      state.authError = null;
+      state.authSuccess = false;
+    })
+    .addCase(resetPassword.fulfilled, (state, { payload }) => {
+      state.loading = false;
+
+      if (payload?.error) {
+        state.authError = payload.error;
+        return;
+      }
+
+      state.authSuccess = !!payload?.success;
+    })
+    .addCase(resetPassword.rejected, (state) => {
+      state.loading = false;
+      state.authError = "Network error";
     });
 };
 

@@ -10,7 +10,9 @@ export const SignUp = () => {
   const [missingFields, setMissingFields] = useState([]);
   const [error, setError] = useState(null);
 
-  const { loading, authError, signedUp } = useSelector((state) => state.auth);
+  const { loading, authError, authSuccess } = useSelector(
+    (state) => state.auth
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -48,7 +50,7 @@ export const SignUp = () => {
     dispatch(resetError());
   };
 
-  if (signedUp) {
+  if (authSuccess) {
     return (
       <main className="auth-form-wrapper">
         <h1>Sign Up</h1>
