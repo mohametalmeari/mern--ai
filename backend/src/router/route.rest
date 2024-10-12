@@ -14,7 +14,7 @@ Content-Type: application/json
 
 {
   "email": "mohamet.almeari@gmail.com",
-  "password": "123456"
+  "password": "7895123"
 }
 
 ### Logout
@@ -50,3 +50,28 @@ Content-Type: application/json
 
 ### Is Logged In
 GET http://localhost:4000/api/auth/is-logged-in
+
+### AI Conversation
+POST http://localhost:4000/api/ai/conversation
+Content-Type: application/json
+
+{
+  "id": "670a01fa562638df1e2b184f",
+  "message": "give only the code, one line, short"
+}
+
+### Get AI Conversation History
+GET http://localhost:4000/api/ai/conversation/670a01fa562638df1e2b184f
+
+### AI Code Generator
+POST http://localhost:4000/api/ai/code
+Content-Type: application/json
+
+{
+  "id": "670a1e08224faf87ce866430",
+  "message": "Ruby function to print Hello World"
+}
+
+### Get AI Code Generator History
+GET http://localhost:4000/api/ai/code/670a1e08224faf87ce866430
+

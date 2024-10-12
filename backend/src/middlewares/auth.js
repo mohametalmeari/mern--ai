@@ -1,6 +1,6 @@
 import { getUserBySessionToken } from "../db/users";
 
-export const isAuthenticate = async (req, res, next) => {
+export const isAuthenticated = async (req, res, next) => {
   try {
     const sessionToken = req.cookies.AUTH;
     if (!sessionToken) {
@@ -43,9 +43,15 @@ export const attachIdentity = async (req, res, next) => {
 export const isAuthorized = (req, res, next) => {
   try {
     const user = req.identity;
-    if (user.premiumExpires < Date.now() && user.freeGenerations < 1) {
+
+    if (
+      (user.premiumExpires && user.premiumExpires < Date.now()) ||
+      (!user.premiumExpires && user.freeGenerations < 1)
+    ) {
       return res.status(403).json({ error: "Unauthorized" });
     }
+
+    req.onFreeTier = user.freeGenerations > 0;
 
     return next();
   } catch (error) {

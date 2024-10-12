@@ -8,7 +8,7 @@ import {
   ResetPassword,
   IsLoggedIn,
 } from "../controllers/auth";
-import { attachIdentity, isAuthenticate } from "../middlewares/auth";
+import { attachIdentity, isAuthenticated } from "../middlewares/auth";
 import { hasRequiredFields } from "../middlewares/validation";
 
 export default (router) => {
@@ -23,7 +23,7 @@ export default (router) => {
   router.patch(
     "/auth/update-password",
     hasRequiredFields("newPassword", "confirmPassword", "currentPassword"),
-    isAuthenticate,
+    isAuthenticated,
     UpdatePassword
   );
   router.post(
