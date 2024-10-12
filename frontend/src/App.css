@@ -1,6 +1,8 @@
 .App {
   display: flex;
   min-height: 100vh;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 .sidebar {
@@ -13,7 +15,7 @@
   transition: all 0.3s;
   top: 0;
   left: 0;
-  bottom: 0;
+  height: 100vh;
   min-width: 15rem;
   z-index: 999;
 }
@@ -69,6 +71,8 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  max-height: 100vh;
+  overflow-y: auto;
 }
 
 .navbar {
@@ -420,6 +424,137 @@ button:active:disabled {
   color: var(--grad-start-color);
 }
 
+.chats-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.chat-bubble {
+  border: solid 1px rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.03);
+  display: flex;
+  gap: 0.5rem;
+  border-radius: 1rem;
+  border-top-left-radius: 0;
+  padding: 1rem;
+  padding-left: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.chat-bubble .-text {
+  display: flex;
+  flex-direction: column;
+  max-width: calc(100% - 3rem);
+  width: 100%;
+}
+
+.chat-bubble .-avatar {
+  font-size: 1.5rem;
+  padding-top: 0.25rem;
+}
+
+.chat-bubble * {
+  line-height: 200%;
+}
+
+.chat-bubble pre:has(code) {
+  background: var(--primary-color);
+  border: solid 1px rgba(0, 150, 255, 0.2);
+  color: rgba(180, 220, 255, 1);
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 0.4rem;
+  overflow-x: auto;
+}
+
+.chat-bubble pre:has(code)::-webkit-scrollbar {
+  height: 6px;
+}
+
+.chat-bubble pre:has(code)::-webkit-scrollbar-button {
+  background-color: none;
+  width: 5px;
+}
+
+.chat-bubble pre:has(code)::-webkit-scrollbar-thumb {
+  background-color: rgba(180, 220, 255, 0.5);
+  border-radius: 10px;
+}
+
+.chat-bubble pre:has(code)::-webkit-scrollbar-track {
+  background-color: var(--primary-color);
+}
+
+.chat-bubble code {
+  background: rgba(0, 150, 255, 0.03);
+  color: rgba(0, 75, 150, 1);
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  border: solid 1px rgba(0, 150, 255, 0.1);
+}
+
+
+.chat-bubble pre:has(code) code {
+  background: none;
+  border: none;
+  color: inherit;
+}
+
+.chat-bubble strong {
+  font-weight: 600;
+}
+
+.chat-bubble ol li {
+  list-style-type: decimal;
+  list-style-position: inside;
+}
+
+.chat-bubble ul li {
+  list-style-type: disc;
+  list-style-position: inside;
+}
+
+.thinking {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 3rem;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: #aaa;
+}
+
+.thinking .-icon {
+  width: 3rem;
+  height: 3rem;
+  animation: jump 1s infinite ease-in-out;
+}
+
+.empty {
+  display: flex;
+  justify-content: center;
+}
+
+.empty img {
+  width: 25rem;
+  max-width: 100%;
+}
+
+@keyframes jump {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-0.5rem);
+  }
+}
+
 @media screen and (min-width: 768px) {
   .sidebar {
     position: static;
@@ -483,6 +618,30 @@ button:active:disabled {
     padding: 1rem 2rem;
     gap: 0.5rem;
     flex-direction: row;
+  }
+
+  .chat-bubble {
+    gap: 1rem;
+    border-radius: 2rem;
+    border-top-left-radius: 0;
+    padding: 3rem;
+    padding-left: 1.5rem;
+    font-size: 1rem;
+  }
+
+  .chat-bubble .-avatar {
+    font-size: 2rem;
+    padding: 0;
+  }
+
+  .chat-bubble pre:has(code) {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+  }
+
+  .chat-bubble pre:has(code)::-webkit-scrollbar {
+    height: 10px;
   }
 }
 

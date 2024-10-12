@@ -29,10 +29,12 @@ function App() {
         <Route path="/dashboard" Component={Layout}>
           <Route index Component={Dashboard} />
           <Route path="conversation" Component={Conversation} />
+          <Route path="conversation/:id" Component={Conversation} />
           <Route path="image-generation" Component={ImageGeneration} />
           <Route path="video-generation" Component={VideoGeneration} />
           <Route path="music-generation" Component={MusicGeneration} />
           <Route path="code-generation" Component={CodeGeneration} />
+          <Route path="code-generation/:id" Component={CodeGeneration} />
           <Route path="settings" Component={Settings} />
         </Route>
 

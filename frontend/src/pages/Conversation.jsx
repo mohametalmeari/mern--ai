@@ -1,12 +1,46 @@
+import { useParams } from "react-router-dom";
 import { getFormData } from "../lib/helpers";
 import { BiConversation } from "react-icons/bi";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  generateConversation,
+  getConversationHistory,
+} from "../redux/features/ai/reducers";
+import { ChatBubble, Empty, Thinking } from "../components";
+import {
+  addToHistory,
+  resetHistory,
+} from "../redux/features/ai/conversationSlice";
 
 export const Conversation = () => {
+  const { id } = useParams();
+
+  const dispatch = useDispatch();
+
+  const { history, loading } = useSelector((state) => state.chat);
+
+  const [missingMessage, setMissingMessage] = useState(true);
+
+  useEffect(() => {
+    dispatch(resetHistory());
+
+    if (!id) return;
+
+    dispatch(getConversationHistory(id));
+  }, [dispatch, id]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const { message } = getFormData(e);
 
-    console.log({ message });
+    if (!message) return;
+
+    dispatch(addToHistory({ text: message }));
+
+    dispatch(generateConversation({ id, message }));
+
+    e.target.reset();
   };
 
   return (
@@ -29,11 +63,24 @@ export const Conversation = () => {
           name="message"
           placeholder="Ask me anything ..."
           className="-field"
+          onChange={({ target }) => setMissingMessage(!target.value)}
         />
-        <button type="submit" className="form-btn">
+        <button type="submit" className="form-btn" disabled={missingMessage}>
           Generate
         </button>
       </form>
+
+      {loading && <Thinking />}
+
+      {history.length === 0 ? (
+        <Empty />
+      ) : (
+        <ul className="chats-list">
+          {[...history].reverse().map(({ parts, role }, index) => (
+            <ChatBubble key={index} text={parts[0].text} role={role} />
+          ))}
+        </ul>
+      )}
     </main>
   );
 };

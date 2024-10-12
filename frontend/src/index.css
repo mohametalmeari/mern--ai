@@ -16,6 +16,8 @@
   color: inherit;
   font-size: inherit;
   font-weight: inherit;
+
+  box-sizing: border-box;
 }
 
 svg {
