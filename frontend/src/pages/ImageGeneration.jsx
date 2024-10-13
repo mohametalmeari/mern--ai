@@ -1,16 +1,20 @@
 import { FaRegImage } from "react-icons/fa6";
 import { getFormData, setFieldValue } from "../lib/helpers";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { generateImage } from "../redux/features/ai/reducers";
 import { FaCloudDownloadAlt } from "react-icons/fa";
 import { MdOutlineZoomOutMap } from "react-icons/md";
-import { Empty, Thinking } from "../components";
+import { Empty, Thinking, UnderConstruction } from "../components";
 
 export const ImageGeneration = () => {
   const dispatch = useDispatch();
 
-  const { images, loading } = useSelector((state) => state.image);
+  const [missingPrompt, setMissingPrompt] = useState(true);
+
+  const { images, loading, underConstruction } = useSelector(
+    (state) => state.image
+  );
 
   useEffect(() => {
     setFieldValue("size", 512);
@@ -22,10 +26,14 @@ export const ImageGeneration = () => {
 
     const { prompt, size, samples } = getFormData(e);
 
+    if (!prompt) return;
+
     dispatch(generateImage({ prompt, size, samples: parseInt(samples) }));
 
     setFieldValue("prompt", "");
   };
+
+  if (underConstruction) return <UnderConstruction />;
 
   return (
     <main className="page">
@@ -47,6 +55,7 @@ export const ImageGeneration = () => {
           name="prompt"
           placeholder="A picture of a cat wearing a hat ..."
           className="-field"
+          onChange={({ target }) => setMissingPrompt(!target.value)}
         />
 
         <select name="samples" className="-drop-list">
@@ -62,7 +71,7 @@ export const ImageGeneration = () => {
           <option value="1024">High (1024x1024)</option>
         </select>
 
-        <button type="submit" className="form-btn">
+        <button type="submit" className="form-btn" disabled={missingPrompt}>
           Generate
         </button>
       </form>

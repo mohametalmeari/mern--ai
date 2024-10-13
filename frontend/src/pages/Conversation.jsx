@@ -7,7 +7,7 @@ import {
   generateConversation,
   getConversationHistory,
 } from "../redux/features/ai/reducers";
-import { ChatBubble, Empty, Thinking } from "../components";
+import { ChatBubble, Empty, Thinking, UnderConstruction } from "../components";
 import {
   addToHistory,
   resetHistory,
@@ -18,7 +18,9 @@ export const Conversation = () => {
 
   const dispatch = useDispatch();
 
-  const { history, loading } = useSelector((state) => state.chat);
+  const { history, loading, underConstruction } = useSelector(
+    (state) => state.chat
+  );
 
   const [missingMessage, setMissingMessage] = useState(true);
 
@@ -42,6 +44,8 @@ export const Conversation = () => {
 
     e.target.reset();
   };
+
+  if (underConstruction) return <UnderConstruction />;
 
   return (
     <main className="page">

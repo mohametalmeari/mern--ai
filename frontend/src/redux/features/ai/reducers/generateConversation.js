@@ -18,6 +18,7 @@ export const generateConversation = createAsyncThunk(
     } catch (error) {
       return {
         error: error?.response?.data?.error || "Something went wrong!",
+        underConstruction: error?.response?.status === 503,
       };
     }
   }

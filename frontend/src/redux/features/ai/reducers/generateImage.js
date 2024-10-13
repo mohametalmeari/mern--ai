@@ -16,10 +16,12 @@ export const generateImage = createAsyncThunk(
           withCredentials: true,
         }
       );
+
       return data;
     } catch (error) {
       return {
         error: error?.response?.data?.error || "Something went wrong!",
+        underConstruction: error?.response?.status === 503,
       };
     }
   }

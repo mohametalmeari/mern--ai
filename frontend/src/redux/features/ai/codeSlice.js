@@ -7,6 +7,7 @@ const initialState = {
   history: [],
   loading: false,
   aiError: null,
+  underConstruction: false,
 };
 
 const handleCaseRejected = (state) => {
@@ -58,6 +59,14 @@ const extraReducers = (builder) => {
 
       if (payload?.error) {
         state.aiError = payload.error;
+        state.underConstruction = !!payload?.underConstruction;
+
+        const errorContent = {
+          role: "error",
+          parts: [{ text: payload.error }],
+        };
+        state.history.push(errorContent);
+
         return;
       }
 

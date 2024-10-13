@@ -368,6 +368,8 @@
 
 .nav-link {
   color: var(--grad-start-color);
+  text-wrap: nowrap;
+  line-height: 150%;
 }
 
 .error-message {
@@ -535,6 +537,8 @@ button:active:disabled {
 
 .empty {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
 }
 

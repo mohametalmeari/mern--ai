@@ -49,6 +49,13 @@ export const Conversation = async (req, res) => {
     return res.status(200).json({ content, id: history._id });
   } catch (error) {
     console.error(error);
+
+    if (error?.errorDetails?.[0]?.domain === "googleapis.com") {
+      return res.status(503).json({
+        error: "Under construction.",
+      });
+    }
+
     return res.status(500).json({ error: "Internal error" });
   }
 };
@@ -117,6 +124,13 @@ export const CodeGenerator = async (req, res) => {
     return res.status(200).json({ content, id: history._id });
   } catch (error) {
     console.error(error);
+
+    if (error?.errorDetails?.[0]?.domain === "googleapis.com") {
+      return res.status(503).json({
+        error: "Under construction.",
+      });
+    }
+
     return res.status(500).json({ error: "Internal error" });
   }
 };
@@ -160,18 +174,12 @@ export const ImageGenerator = async (req, res) => {
       }
     );
 
-    // const response = {
-    //   json: async () => ({
-    //     output: [
-    //       "https://pub-3626123a908346a7a8be8d9295f44e26.r2.dev/temp/35b6274d-803c-4ac7-89ef-8f4eed180a00-0.png",
-    //     ],
-    //   }),
-    // }; // Mock response
-
     const { output } = await response.json();
 
     if (!output) {
-      throw new Error("Image generation failed");
+      return res.status(503).json({
+        error: "Under construction.",
+      });
     }
 
     return res.status(200).json({ images: output });

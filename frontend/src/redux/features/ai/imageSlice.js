@@ -7,6 +7,7 @@ const initialState = {
   images: [],
   loading: false,
   aiError: null,
+  underConstruction: false,
 };
 
 const handleCaseRejected = (state) => {
@@ -28,6 +29,7 @@ const extraReducers = (builder) => {
 
       if (payload?.error) {
         state.aiError = payload.error;
+        state.underConstruction = !!payload?.underConstruction;
         return;
       }
 

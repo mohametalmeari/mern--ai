@@ -34,3 +34,7 @@ body {
 main {
   color: var(--primary-color);
 }
+
+b {
+  font-weight: 600;
+}

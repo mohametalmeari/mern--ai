@@ -5,14 +5,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { addToHistory, resetHistory } from "../redux/features/ai/codeSlice";
 import { generateCode, getCodeHistory } from "../redux/features/ai/reducers";
-import { ChatBubble, Empty, Thinking } from "../components";
+import { ChatBubble, Empty, Thinking, UnderConstruction } from "../components";
 
 export const CodeGeneration = () => {
   const { id } = useParams();
 
   const dispatch = useDispatch();
 
-  const { history, loading } = useSelector((state) => state.code);
+  const { history, loading, underConstruction } = useSelector(
+    (state) => state.code
+  );
 
   const [missingMessage, setMissingMessage] = useState(true);
 
@@ -36,6 +38,8 @@ export const CodeGeneration = () => {
 
     e.target.reset();
   };
+
+  if (underConstruction) return <UnderConstruction />;
 
   return (
     <main className="page">
