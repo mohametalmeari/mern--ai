@@ -1,18 +1,30 @@
 import { FaRegImage } from "react-icons/fa6";
 import { getFormData, setFieldValue } from "../lib/helpers";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { generateImage } from "../redux/features/ai/reducers";
+import { FaCloudDownloadAlt } from "react-icons/fa";
+import { MdOutlineZoomOutMap } from "react-icons/md";
+import { Empty, Thinking } from "../components";
 
 export const ImageGeneration = () => {
+  const dispatch = useDispatch();
+
+  const { images, loading } = useSelector((state) => state.image);
+
   useEffect(() => {
     setFieldValue("size", 512);
-    setFieldValue("number", 2);
+    setFieldValue("samples", 2);
   }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { message, number, size } = getFormData(e);
 
-    console.log({ message, number, size });
+    const { prompt, size, samples } = getFormData(e);
+
+    dispatch(generateImage({ prompt, size, samples: parseInt(samples) }));
+
+    setFieldValue("prompt", "");
   };
 
   return (
@@ -32,17 +44,16 @@ export const ImageGeneration = () => {
       <form onSubmit={handleSubmit} className="generate-form">
         <input
           type="text"
-          name="message"
+          name="prompt"
           placeholder="A picture of a cat wearing a hat ..."
           className="-field"
         />
 
-        <select name="number" className="-drop-list">
+        <select name="samples" className="-drop-list">
           <option value="1">1 Photo</option>
           <option value="2">2 Photos</option>
           <option value="3">3 Photos</option>
           <option value="4">4 Photos</option>
-          <option value="5">5 Photos</option>
         </select>
 
         <select name="size" className="-drop-list">
@@ -55,6 +66,42 @@ export const ImageGeneration = () => {
           Generate
         </button>
       </form>
+
+      {loading ? (
+        <Thinking />
+      ) : !images || images.length === 0 ? (
+        <Empty />
+      ) : (
+        <div
+          className="images"
+          style={{ maxWidth: `${images.length * 20}rem` }}
+        >
+          {images.map((image, index) => (
+            <div key={index} className="image-wrapper">
+              <img src={image} alt="Generated" />
+              <div className="-controls">
+                <a
+                  className="-btn"
+                  href={image}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <MdOutlineZoomOutMap />
+                </a>
+                <a
+                  className="-btn"
+                  href={image}
+                  target="_blank"
+                  rel="noreferrer"
+                  download
+                >
+                  <FaCloudDownloadAlt />
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </main>
   );
 };
