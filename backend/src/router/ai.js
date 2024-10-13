@@ -3,6 +3,7 @@ import {
   Conversation,
   getCodeGeneratorHistory,
   getConversationHistory,
+  ImageGenerator,
 } from "../controllers/ai";
 import { isAuthenticated, isAuthorized } from "../middlewares/auth";
 import { hasRequiredFields } from "../middlewares/validation";
@@ -24,6 +25,12 @@ export default (router) => {
     CodeGenerator
   );
   router.get("/ai/code/:id", isAuthenticated, getCodeGeneratorHistory);
+  router.post(
+    "/ai/image",
+    hasRequiredFields("prompt"),
+    isAuthenticated,
+    ImageGenerator
+  );
 
   return router;
 };

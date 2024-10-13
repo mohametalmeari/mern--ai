@@ -21,3 +21,33 @@ export const codeInstructions = [
     ],
   },
 ];
+
+export const imgReqConfig = {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  redirect: "follow",
+};
+
+const negative_prompt =
+  "((out of frame)), ((extra fingers)), mutated hands, ((poorly drawn hands)), ((poorly drawn face)), (((mutation))), (((deformed))), (((tiling))), ((naked)), ((tile)), ((fleshpile)), ((ugly)), (((abstract))), blurry, ((bad anatomy)), ((bad proportions)), ((extra limbs)), cloned face, (((skinny))), glitchy, ((extra breasts)), ((double torso)), ((extra arms)), ((extra hands)), ((mangled fingers)), ((missing breasts)), (missing lips), ((ugly face)), ((fat)), ((extra legs))";
+
+export const generateImgReqBody = ({ prompt, size, samples, key }) =>
+  JSON.stringify({
+    prompt,
+    width: size || "512",
+    height: size || "512",
+    samples: samples || 1,
+    negative_prompt,
+    key,
+
+    num_inference_steps: "20",
+    safety_checker: false,
+    enhance_prompt: true,
+    temp: true,
+    seed: null,
+    guidance_scale: 7.5,
+    webhook: null,
+    track_id: null,
+  });

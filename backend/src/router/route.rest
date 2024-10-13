@@ -75,3 +75,12 @@ Content-Type: application/json
 ### Get AI Code Generator History
 GET http://localhost:4000/api/ai/code/670a1e08224faf87ce866430
 
+### AI Image Generator
+POST http://localhost:4000/api/ai/image
+Content-Type: application/json
+
+{ 
+  "prompt": "A plate of food", 
+  "size": "1024", 
+  "samples": 1
+}

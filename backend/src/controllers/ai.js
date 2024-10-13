@@ -1,5 +1,12 @@
 import { addContent, createHistory, getHistory } from "../db/history";
-import { codeInstructions, generationConfig, genModel } from "../helpers";
+import { getKey } from "../db/keys";
+import {
+  codeInstructions,
+  generateImgReqBody,
+  generationConfig,
+  genModel,
+  imgReqConfig,
+} from "../helpers";
 
 export const Conversation = async (req, res) => {
   try {
@@ -131,6 +138,43 @@ export const getCodeGeneratorHistory = async (req, res) => {
     }
 
     return res.status(200).json(history);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal error" });
+  }
+};
+
+export const ImageGenerator = async (req, res) => {
+  try {
+    const { prompt, size, samples } = req.body;
+
+    const key = await getKey({ identifier: "image", samples });
+
+    const body = generateImgReqBody({ prompt, size, samples, key });
+
+    const response = await fetch(
+      "https://modelslab.com/api/v6/realtime/text2img",
+      {
+        ...imgReqConfig,
+        body,
+      }
+    );
+
+    // const response = {
+    //   json: async () => ({
+    //     output: [
+    //       "https://pub-3626123a908346a7a8be8d9295f44e26.r2.dev/temp/35b6274d-803c-4ac7-89ef-8f4eed180a00-0.png",
+    //     ],
+    //   }),
+    // }; // Mock response
+
+    const { output } = await response.json();
+
+    if (!output) {
+      throw new Error("Image generation failed");
+    }
+
+    return res.status(200).json({ images: output });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Internal error" });
