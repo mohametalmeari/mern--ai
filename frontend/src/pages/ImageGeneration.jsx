@@ -31,6 +31,7 @@ export const ImageGeneration = () => {
     dispatch(generateImage({ prompt, size, samples: parseInt(samples) }));
 
     setFieldValue("prompt", "");
+    setMissingPrompt(true);
   };
 
   if (underConstruction) return <UnderConstruction />;

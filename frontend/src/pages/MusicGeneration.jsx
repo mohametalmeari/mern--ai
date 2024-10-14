@@ -1,13 +1,34 @@
 import { FiMusic } from "react-icons/fi";
 import { getFormData } from "../lib/helpers";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { generateMusic } from "../redux/features/ai/reducers";
+import { Empty, Thinking, UnderConstruction } from "../components";
 
 export const MusicGeneration = () => {
+  const dispatch = useDispatch();
+
+  const [missingPrompt, setMissingPrompt] = useState(true);
+
+  const { audio, loading, underConstruction } = useSelector(
+    (state) => state.music
+  );
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { message } = getFormData(e);
+    const { prompt } = getFormData(e);
 
-    console.log({ message });
+    console.log(prompt);
+
+    if (!prompt) return;
+
+    dispatch(generateMusic({ prompt }));
+
+    e.target.reset();
+    setMissingPrompt(true);
   };
+
+  if (underConstruction) return <UnderConstruction />;
 
   return (
     <main className="page">
@@ -26,15 +47,26 @@ export const MusicGeneration = () => {
       <form onSubmit={handleSubmit} className="generate-form">
         <input
           type="text"
-          name="message"
+          name="prompt"
           placeholder="Piano solo ..."
           className="-field"
+          onChange={({ target }) => setMissingPrompt(!target.value)}
         />
 
-        <button type="submit" className="form-btn">
+        <button type="submit" className="form-btn" disabled={missingPrompt}>
           Generate
         </button>
       </form>
+
+      {loading ? (
+        <Thinking />
+      ) : !audio ? (
+        <Empty />
+      ) : (
+        <div className="music-wrapper">
+          <audio src={audio} controls />
+        </div>
+      )}
     </main>
   );
 };
