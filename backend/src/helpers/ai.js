@@ -1,4 +1,5 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import Replicate from "replicate";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 export const genModel = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
@@ -51,3 +52,12 @@ export const generateImgReqBody = ({ prompt, size, samples, key }) =>
     webhook: null,
     track_id: null,
   });
+
+export const replicate = new Replicate({
+  auth: process.env.REPLICATE_API_TOKEN,
+});
+
+export const videoIdentifier =
+  "anotherjesse/zeroscope-v2-xl:9f747673945c62801b13b84701c783929c0ee784e4748ec062204894dda1a351";
+export const musicIdentifier =
+  "riffusion/riffusion:8cf61ea6c56afd61d8f5b9ffd14d7c216c0a93844ce2d82ac1c9ecc9c7f24e05";

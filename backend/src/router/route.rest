@@ -84,3 +84,19 @@ Content-Type: application/json
   "size": "1024", 
   "samples": 1
 }
+
+### IA Video Generator
+POST http://localhost:4000/api/ai/video
+Content-Type: application/json
+
+{
+  "prompt": "Dancing cat"
+}
+
+### IA Video Generator
+POST http://localhost:4000/api/ai/music
+Content-Type: application/json
+
+{
+  "prompt": "Happy music"
+}

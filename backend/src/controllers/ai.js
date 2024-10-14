@@ -6,6 +6,9 @@ import {
   generationConfig,
   genModel,
   imgReqConfig,
+  musicIdentifier,
+  replicate,
+  videoIdentifier,
 } from "../helpers";
 
 export const Conversation = async (req, res) => {
@@ -185,6 +188,61 @@ export const ImageGenerator = async (req, res) => {
     return res.status(200).json({ images: output });
   } catch (error) {
     console.error(error);
+    return res.status(500).json({ error: "Internal error" });
+  }
+};
+
+export const VideoGenerator = async (req, res) => {
+  try {
+    const { prompt } = req.body;
+
+    const videos = await replicate.run(videoIdentifier, {
+      input: {
+        prompt,
+      },
+    });
+
+    // const videos = [
+    //   "https://replicate.delivery/pbxt/BxOCqncnxzI9NZZdsRd3N7i1IO2uNH053x6pGrOWtQnI3USE/out.mp4",
+    // ]; // Mock data
+
+    return res.status(200).json({ video: videos[0] });
+  } catch (error) {
+    console.error(error);
+
+    if (error?.response?.status >= 400) {
+      return res.status(503).json({
+        error: "Under construction.",
+      });
+    }
+
+    return res.status(500).json({ error: "Internal error" });
+  }
+};
+
+export const MusicGenerator = async (req, res) => {
+  try {
+    const { prompt } = req.body;
+
+    const audio = await replicate.run(musicIdentifier, {
+      input: {
+        prompt_a: prompt,
+      },
+    });
+
+    // const audio =
+    //   "https://replicate.delivery/pbxt/SCiO1SBkqj7gL5cTsq8AXz5pIwPajeiWbb9s17KtyQ2G3OFIA/gen_sound.wav"; // Mock data
+
+    return res.status(200).json({ audio });
+  } catch (error) {
+    console.error(error);
+
+    if (error?.response?.status >= 400) {
+      return res.status(503).json({
+        error: "Under construction.",
+      });
+    }
+
     return res.status(500).json({ error: "Internal error" });
   }
 };

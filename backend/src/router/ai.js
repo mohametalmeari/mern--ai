@@ -4,6 +4,8 @@ import {
   getCodeGeneratorHistory,
   getConversationHistory,
   ImageGenerator,
+  MusicGenerator,
+  VideoGenerator,
 } from "../controllers/ai";
 import { isAuthenticated, isAuthorized } from "../middlewares/auth";
 import { hasRequiredFields } from "../middlewares/validation";
@@ -30,6 +32,18 @@ export default (router) => {
     hasRequiredFields("prompt"),
     isAuthenticated,
     ImageGenerator
+  );
+  router.post(
+    "/ai/video",
+    hasRequiredFields("prompt"),
+    isAuthenticated,
+    VideoGenerator
+  );
+  router.post(
+    "/ai/music",
+    hasRequiredFields("prompt"),
+    isAuthenticated,
+    MusicGenerator
   );
 
   return router;
