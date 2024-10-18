@@ -4,3 +4,4 @@ export * from "./signIn";
 export * from "./signOut";
 export * from "./forgotPassword";
 export * from "./resetPassword";
+export * from "./checkFreeTier";

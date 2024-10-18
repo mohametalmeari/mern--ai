@@ -87,7 +87,8 @@
   cursor: pointer;
 }
 
-.close-menu-icon {
+.close-menu-icon,
+.close-upgrade-icon {
   position: absolute;
   right: 0;
   top: 0;
@@ -98,8 +99,16 @@
   transition: all 0.2s;
 }
 
+.close-upgrade-icon {
+  margin: 1rem;
+}
+
 .close-menu-icon:hover {
   color: white;
+}
+
+.close-upgrade-icon:hover {
+  color: var(--primary-color);
 }
 
 .home-page {
@@ -110,7 +119,8 @@
 }
 
 .button {
-  padding: 1rem 1.5rem;
+  padding: 0.25rem 1.5rem;
+  height: 3rem;
   border-radius: 0.5rem;
   color: white;
   text-align: center;
@@ -119,6 +129,14 @@
   font-weight: 500;
   font-size: 1rem;
   border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1rem;
+}
+
+.button svg {
+  font-size: 1.5rem;
 }
 
 .button:hover {
@@ -626,6 +644,94 @@ button:active:disabled {
   flex: 1;
 }
 
+.sidebar-footer {
+  background: #ffffff22;
+  padding: 0.8rem 1rem;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: auto;
+}
+
+.settings {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-start;
+  color: #777;
+}
+
+.upgrade-to-premium-container {
+  background: #000c;
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.upgrade-to-premium {
+  background: white;
+  width: 30rem;
+  max-width: calc(100% - 2rem);
+  padding: 2rem;
+  border-radius: 0.5rem;
+  color: var(--primary-color);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+}
+
+.upgrade-to-premium .-header {
+  display: flex;
+  margin: auto;
+  margin-bottom: 1rem;
+  gap: 1rem;
+  align-items: center;
+  font-weight: 500;
+  font-size: 1.25rem;
+}
+
+.upgrade-to-premium .-services-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.upgrade-to-premium .-service {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  padding: 0.7rem;
+  border: solid 1px rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+}
+
+.upgrade-to-premium .-service .-name {
+  flex: 1;
+}
+
+.upgrade-to-premium .-service .-icon {
+  font-size: 1.5rem;
+  padding: 0.6rem;
+  border-radius: 0.5rem;
+}
+
+.upgrade-to-premium .-service>svg {
+  color: skyblue;
+}
+
+.pill {
+  padding: 0.5rem 1rem;
+  border-radius: 10rem;
+  background: linear-gradient(90deg, var(--grad-start-color), var(--grad-end-color));
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
 
 @keyframes jump {
 

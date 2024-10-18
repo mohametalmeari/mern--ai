@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   activateAccount,
+  checkFreeTier,
   forgotPassword,
   register,
   resetPassword,
@@ -13,6 +14,8 @@ const name = "auth";
 
 const initialState = {
   isAuthenticated: undefined,
+  isPremium: false,
+  freeGenerations: 0,
   authError: null,
   authSuccess: false,
   verified: false,
@@ -103,6 +106,16 @@ const extraReducers = (builder) => {
     })
     .addCase(checkAuth.fulfilled, (state, { payload }) => {
       state.isAuthenticated = payload.in;
+    });
+
+  builder
+    .addCase(checkFreeTier.rejected, (state) => {
+      state.isPremium = false;
+      state.freeGenerations = 0;
+    })
+    .addCase(checkFreeTier.fulfilled, (state, { payload }) => {
+      state.isPremium = payload.isPremium;
+      state.freeGenerations = payload.freeGenerations;
     });
 
   builder

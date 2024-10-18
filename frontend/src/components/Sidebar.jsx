@@ -7,7 +7,10 @@ import { IoMdCode } from "react-icons/io";
 import { FiMusic } from "react-icons/fi";
 import { IoClose, IoSettingsOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import { closeMenu } from "../redux/features/menu/menuSlice";
+import { closeMenu, openUpgrade } from "../redux/features/menu/menuSlice";
+import { useEffect } from "react";
+import { checkFreeTier } from "../redux/features/auth/reducers";
+import { GiElectric } from "react-icons/gi";
 
 export const Links = [
   {
@@ -83,6 +86,65 @@ export const Sidebar = () => {
           </li>
         ))}
       </ul>
+      <SidebarFooter />
     </nav>
+  );
+};
+
+const SidebarFooter = () => {
+  const dispatch = useDispatch();
+
+  const { isPremium, freeGenerations } = useSelector((state) => state.auth);
+
+  const { history: chatHistory } = useSelector((state) => state.chat);
+  const { history: codeHistory } = useSelector((state) => state.code);
+  const { images } = useSelector((state) => state.image);
+  const { video } = useSelector((state) => state.video);
+  const { audio } = useSelector((state) => state.music);
+
+  useEffect(() => {
+    dispatch(checkFreeTier());
+  }, [dispatch, chatHistory, codeHistory, images, video, audio]);
+
+  if (isPremium) {
+    return null;
+  }
+
+  const handleOpenUpgrade = () => {
+    dispatch(openUpgrade());
+  };
+
+  return (
+    <div className="sidebar-footer">
+      <span>{freeGenerations} / 5 Free Generations</span>
+      <ProgressBar progress={freeGenerations} max={5} />
+      <button className="button _primary" onClick={handleOpenUpgrade}>
+        Upgrade
+        <GiElectric />
+      </button>
+    </div>
+  );
+};
+
+const ProgressBar = ({ progress, max }) => {
+  return (
+    <div
+      style={{
+        background: "white",
+        width: "100%",
+        height: "0.8rem",
+        borderRadius: "1rem",
+        margin: "0.5rem auto",
+        overflow: "hidden",
+      }}
+    >
+      <div
+        style={{
+          background: "var( --grad-start-color)",
+          height: "100%",
+          width: `${(progress / max) * 100}%`,
+        }}
+      />
+    </div>
   );
 };

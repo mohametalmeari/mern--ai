@@ -71,11 +71,7 @@ const extraReducers = (builder) => {
       }
 
       if (payload.navigateTo) {
-        window.history.pushState(
-          null,
-          "",
-          `/dashboard/code-generation/${payload.navigateTo}`
-        );
+        window.location.href = `/dashboard/code-generation/${payload.navigateTo}`;
       }
 
       state.history.push(payload.data.content);

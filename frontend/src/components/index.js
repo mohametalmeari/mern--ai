@@ -7,3 +7,4 @@ export * from "./Thinking";
 export * from "./Empty";
 export * from "./UnderConstruction";
 export * from "./Error";
+export * from "./UpgradeToPremium";

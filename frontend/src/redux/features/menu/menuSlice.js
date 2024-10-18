@@ -4,6 +4,7 @@ const name = "menu";
 
 const initialState = {
   isOpen: false,
+  upgradeIsOpen: false,
 };
 
 const reducers = {
@@ -13,10 +14,17 @@ const reducers = {
   openMenu: (state) => {
     state.isOpen = true;
   },
+  openUpgrade: (state) => {
+    state.upgradeIsOpen = true;
+  },
+  closeUpgrade: (state) => {
+    state.upgradeIsOpen = false;
+  },
 };
 
 const menuSlice = createSlice({ name, initialState, reducers });
 
-export const { closeMenu, openMenu } = menuSlice.actions;
+export const { closeMenu, openMenu, openUpgrade, closeUpgrade } =
+  menuSlice.actions;
 
 export default menuSlice.reducer;

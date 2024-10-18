@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { Sidebar } from "../components";
+import { Sidebar, UpgradeToPremium } from "../components";
 import { Navbar } from "../components";
 
 export const Layout = () => (
@@ -9,5 +9,7 @@ export const Layout = () => (
       <Navbar />
       <Outlet />
     </div>
+
+    <UpgradeToPremium />
   </div>
 );
