@@ -213,3 +213,18 @@ export const IsLoggedIn = async (req, res) => {
     return res.status(500).json({ error: "Internal error" });
   }
 };
+
+export const FreeTier = async (req, res) => {
+  try {
+    const user = req.identity;
+
+    const isPremium = user.premiumExpires && user.premiumExpires > new Date();
+
+    const freeGenerations = !isPremium ? user.freeGenerations : undefined;
+
+    return res.status(200).json({ isPremium, freeGenerations });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal error" });
+  }
+};

@@ -7,6 +7,7 @@ import {
   ForgotPassword,
   ResetPassword,
   IsLoggedIn,
+  FreeTier,
 } from "../controllers/auth";
 import { attachIdentity, isAuthenticated } from "../middlewares/auth";
 import { hasRequiredFields } from "../middlewares/validation";
@@ -37,4 +38,5 @@ export default (router) => {
     ResetPassword
   );
   router.get("/auth/is-logged-in", attachIdentity, IsLoggedIn);
+  router.get("/auth/free-tier", isAuthenticated, FreeTier);
 };

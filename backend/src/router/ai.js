@@ -31,18 +31,21 @@ export default (router) => {
     "/ai/image",
     hasRequiredFields("prompt"),
     isAuthenticated,
+    isAuthorized,
     ImageGenerator
   );
   router.post(
     "/ai/video",
     hasRequiredFields("prompt"),
     isAuthenticated,
+    isAuthorized,
     VideoGenerator
   );
   router.post(
     "/ai/music",
     hasRequiredFields("prompt"),
     isAuthenticated,
+    isAuthorized,
     MusicGenerator
   );
 
