@@ -5,14 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { generateImage } from "../redux/features/ai/reducers";
 import { FaCloudDownloadAlt } from "react-icons/fa";
 import { MdOutlineZoomOutMap } from "react-icons/md";
-import { Empty, Thinking, UnderConstruction } from "../components";
+import { Empty, Error, Thinking, UnderConstruction } from "../components";
 
 export const ImageGeneration = () => {
   const dispatch = useDispatch();
 
   const [missingPrompt, setMissingPrompt] = useState(true);
 
-  const { images, loading, underConstruction } = useSelector(
+  const { images, loading, underConstruction, aiError } = useSelector(
     (state) => state.image
   );
 
@@ -79,6 +79,8 @@ export const ImageGeneration = () => {
 
       {loading ? (
         <Thinking />
+      ) : aiError ? (
+        <Error error={aiError} />
       ) : !images || images.length === 0 ? (
         <Empty />
       ) : (

@@ -16,7 +16,8 @@
   top: 0;
   left: 0;
   height: 100vh;
-  min-width: 15rem;
+  width: 18rem;
+  max-width: 100vw;
   z-index: 999;
 }
 
@@ -117,6 +118,7 @@
   transition: all 0.2s;
   font-weight: 500;
   font-size: 1rem;
+  border: none;
 }
 
 .button:hover {
@@ -535,16 +537,30 @@ button:active:disabled {
   animation: jump 1s infinite ease-in-out;
 }
 
-.empty {
+.empty,
+.error {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.empty img {
+.empty img,
+.error img {
   width: 25rem;
   max-width: 100%;
+}
+
+.error h2 {
+  width: 25rem;
+  max-width: 100%;
+  text-align: center;
+  color: #f88;
+  line-height: 150%;
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-top: 2rem;
+  margin-bottom: 5rem;
 }
 
 .images {

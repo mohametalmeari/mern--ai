@@ -185,6 +185,12 @@ export const ImageGenerator = async (req, res) => {
       });
     }
 
+    if (req.onFreeTier) {
+      const user = req.identity;
+      user.freeGenerations -= 1;
+      await user.save();
+    }
+
     return res.status(200).json({ images: output });
   } catch (error) {
     console.error(error);
@@ -202,9 +208,11 @@ export const VideoGenerator = async (req, res) => {
       },
     });
 
-    // const videos = [
-    //   "https://replicate.delivery/pbxt/BxOCqncnxzI9NZZdsRd3N7i1IO2uNH053x6pGrOWtQnI3USE/out.mp4",
-    // ]; // Mock data
+    if (req.onFreeTier) {
+      const user = req.identity;
+      user.freeGenerations -= 1;
+      await user.save();
+    }
 
     return res.status(200).json({ video: videos[0] });
   } catch (error) {
@@ -230,8 +238,11 @@ export const MusicGenerator = async (req, res) => {
       },
     });
 
-    // const audio =
-    //   "https://replicate.delivery/pbxt/SCiO1SBkqj7gL5cTsq8AXz5pIwPajeiWbb9s17KtyQ2G3OFIA/gen_sound.wav"; // Mock data
+    if (req.onFreeTier) {
+      const user = req.identity;
+      user.freeGenerations -= 1;
+      await user.save();
+    }
 
     return res.status(200).json({ audio });
   } catch (error) {

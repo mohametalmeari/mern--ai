@@ -3,14 +3,14 @@ import { getFormData } from "../lib/helpers";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { generateVideo } from "../redux/features/ai/reducers";
-import { Empty, Thinking, UnderConstruction } from "../components";
+import { Empty, Error, Thinking, UnderConstruction } from "../components";
 
 export const VideoGeneration = () => {
   const dispatch = useDispatch();
 
   const [missingPrompt, setMissingPrompt] = useState(true);
 
-  const { video, loading, underConstruction } = useSelector(
+  const { video, loading, underConstruction, aiError } = useSelector(
     (state) => state.video
   );
 
@@ -58,6 +58,8 @@ export const VideoGeneration = () => {
 
       {loading ? (
         <Thinking />
+      ) : aiError ? (
+        <Error error={aiError} />
       ) : !video ? (
         <Empty />
       ) : (

@@ -3,14 +3,14 @@ import { getFormData } from "../lib/helpers";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { generateMusic } from "../redux/features/ai/reducers";
-import { Empty, Thinking, UnderConstruction } from "../components";
+import { Empty, Error, Thinking, UnderConstruction } from "../components";
 
 export const MusicGeneration = () => {
   const dispatch = useDispatch();
 
   const [missingPrompt, setMissingPrompt] = useState(true);
 
-  const { audio, loading, underConstruction } = useSelector(
+  const { audio, loading, underConstruction, aiError } = useSelector(
     (state) => state.music
   );
 
@@ -60,6 +60,8 @@ export const MusicGeneration = () => {
 
       {loading ? (
         <Thinking />
+      ) : aiError ? (
+        <Error error={aiError} />
       ) : !audio ? (
         <Empty />
       ) : (

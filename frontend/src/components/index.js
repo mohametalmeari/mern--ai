@@ -6,3 +6,4 @@ export * from "./UserIcon";
 export * from "./Thinking";
 export * from "./Empty";
 export * from "./UnderConstruction";
+export * from "./Error";
