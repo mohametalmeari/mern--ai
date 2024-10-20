@@ -13,7 +13,6 @@ const Schema = new mongoose.Schema({
     resetToken: { type: String, select: false },
     resetTokenExpires: { type: Date, select: false },
   },
-  premiumExpires: { type: Date, required: false },
   freeGenerations: { type: Number, default: 5 },
 });
 
@@ -36,3 +35,5 @@ export const getUserByVerificationToken = async (verificationToken) => {
 
 export const getUserByResetToken = (resetToken) =>
   User.findOne({ "auth.resetToken": resetToken });
+
+export const getUserById = (id) => User.findById(id);

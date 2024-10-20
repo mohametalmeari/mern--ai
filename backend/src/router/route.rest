@@ -100,3 +100,6 @@ Content-Type: application/json
 {
   "prompt": "Happy music"
 }
+
+### Stripe
+GET http://localhost:4000/api/subscribe

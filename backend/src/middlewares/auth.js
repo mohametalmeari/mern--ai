@@ -1,3 +1,4 @@
+import { getSubscriptionByUserId } from "../db/subscriptions";
 import { getUserBySessionToken } from "../db/users";
 
 export const isAuthenticated = async (req, res, next) => {
@@ -40,15 +41,27 @@ export const attachIdentity = async (req, res, next) => {
   }
 };
 
-export const isAuthorized = (req, res, next) => {
+export const isAuthorized = async (req, res, next) => {
   try {
     const user = req.identity;
 
+    const subscription = await getSubscriptionByUserId(user._id);
+
     if (
-      (user.premiumExpires && user.premiumExpires < Date.now()) ||
-      (!user.premiumExpires && user.freeGenerations < 1)
+      subscription &&
+      subscription.expires < Date.now() &&
+      user.freeGenerations < 1
     ) {
-      return res.status(403).json({ error: "Unauthorized" });
+      return res.status(403).json({
+        error: "Your premium plan has expired. Please renew to continue.",
+      });
+    }
+
+    if (!subscription && user.freeGenerations < 1) {
+      return res.status(403).json({
+        error:
+          "You have used all your free generations. Please upgrade to continue.",
+      });
     }
 
     req.onFreeTier = user.freeGenerations > 0;

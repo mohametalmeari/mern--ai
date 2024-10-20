@@ -4,12 +4,9 @@ import {
   getUserByResetToken,
   getUserByVerificationToken,
 } from "../db/users";
+import { getSubscriptionByUserId } from "../db/subscriptions";
 import { hash, random, token } from "../helpers/auth";
-import {
-  sendMail,
-  sendResetPasswordMail,
-  sendVerificationMail,
-} from "../helpers/mails";
+import { sendResetPasswordMail, sendVerificationMail } from "../helpers/mails";
 
 export const Register = async (req, res) => {
   try {
@@ -218,7 +215,9 @@ export const FreeTier = async (req, res) => {
   try {
     const user = req.identity;
 
-    const isPremium = user.premiumExpires && user.premiumExpires > new Date();
+    const subscription = await getSubscriptionByUserId(user._id);
+
+    const isPremium = subscription && subscription.expires > new Date();
 
     const freeGenerations = !isPremium ? user.freeGenerations : undefined;
 

@@ -1,12 +1,13 @@
 require("dotenv").config();
 
-import express from "express";
+import express, { Router } from "express";
 import cookieParser from "cookie-parser";
 import compression from "compression";
 import cors from "cors";
 import mongoose from "mongoose";
 
 import router from "./router";
+import { Webhook } from "./controllers/stripe";
 
 const app = express();
 
@@ -18,6 +19,12 @@ app.use(
     credentials: true,
   })
 );
+app.use(
+  "/api/webhook/",
+  express.text({ type: "application/json" }),
+  Router().post("/", Webhook)
+);
+
 app.use(express.json());
 
 app.use("/api/", router());
