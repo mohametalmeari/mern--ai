@@ -10,12 +10,13 @@ import {
   FreeTier,
 } from "../controllers/auth";
 import { attachIdentity, isAuthenticated } from "../middlewares/auth";
-import { hasRequiredFields } from "../middlewares/validation";
+import { hasRequiredFields, isValidPassword } from "../middlewares/validation";
 
 export default (router) => {
   router.post(
     "/auth/register",
     hasRequiredFields("email", "password", "confirmPassword"),
+    isValidPassword("password"),
     Register
   );
   router.get("/auth/activate-account/:token", ActivateAccount);
@@ -24,6 +25,7 @@ export default (router) => {
   router.patch(
     "/auth/update-password",
     hasRequiredFields("newPassword", "confirmPassword", "currentPassword"),
+    isValidPassword("newPassword"),
     isAuthenticated,
     UpdatePassword
   );
@@ -35,6 +37,7 @@ export default (router) => {
   router.patch(
     "/auth/reset-password",
     hasRequiredFields("token", "newPassword", "confirmPassword"),
+    isValidPassword("newPassword"),
     ResetPassword
   );
   router.get("/auth/is-logged-in", attachIdentity, IsLoggedIn);
