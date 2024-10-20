@@ -4,16 +4,23 @@ import { GiElectric } from "react-icons/gi";
 import { useDispatch, useSelector } from "react-redux";
 import { IoClose } from "react-icons/io5";
 import { closeUpgrade } from "../redux/features/menu/menuSlice";
+import { subscribe } from "../redux/features/stripe/reducers/subscribe";
 
 export const UpgradeToPremium = () => {
   const dispatch = useDispatch();
   const { upgradeIsOpen } = useSelector((state) => state.menu);
   const { isPremium } = useSelector((state) => state.auth);
+  const { loading } = useSelector((state) => state.stripe);
+  // const loading = false;
 
   if (!upgradeIsOpen || isPremium) return null;
 
   const handleClose = () => {
     dispatch(closeUpgrade());
+  };
+
+  const handleClick = () => {
+    dispatch(subscribe());
   };
 
   return (
@@ -40,7 +47,11 @@ export const UpgradeToPremium = () => {
           ))}
         </ul>
 
-        <button className="button _primary">
+        <button
+          className="button _primary"
+          onClick={handleClick}
+          disabled={loading}
+        >
           Upgrade
           <GiElectric />
         </button>

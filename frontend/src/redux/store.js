@@ -7,7 +7,8 @@ import code from "./features/ai/codeSlice";
 import image from "./features/ai/imageSlice";
 import video from "./features/ai/videoSlice";
 import music from "./features/ai/musicSlice";
+import stripe from "./features/stripe/stripeSlice";
 
 export const store = configureStore({
-  reducer: { menu, auth, chat, code, image, video, music },
+  reducer: { menu, auth, chat, code, image, video, music, stripe },
 });

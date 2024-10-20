@@ -2,6 +2,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { GiElectric } from "react-icons/gi";
 import { useDispatch, useSelector } from "react-redux";
 import { openUpgrade } from "../redux/features/menu/menuSlice";
+import { subscribe } from "../redux/features/stripe/reducers/subscribe";
 
 export const Settings = () => {
   const dispatch = useDispatch();
@@ -9,6 +10,10 @@ export const Settings = () => {
 
   const handleOpenUpgrade = () => {
     dispatch(openUpgrade());
+  };
+
+  const handleManage = () => {
+    dispatch(subscribe());
   };
   return (
     <main className="page">
@@ -25,7 +30,9 @@ export const Settings = () => {
         {isPremium ? (
           <>
             <p>You are currently on a pro plan.</p>
-            <button className="form-btn">Manage Subscription</button>
+            <button className="form-btn" onClick={handleManage}>
+              Manage Subscription
+            </button>
           </>
         ) : (
           <>
