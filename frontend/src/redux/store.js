@@ -11,4 +11,5 @@ import stripe from "./features/stripe/stripeSlice";
 
 export const store = configureStore({
   reducer: { menu, auth, chat, code, image, video, music, stripe },
+  
 });
