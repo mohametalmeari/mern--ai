@@ -7,6 +7,11 @@ export const hasRequiredFields =
         error: `Missing required fields: ${missingFields.join(", ")}`,
       });
     }
+
+    if (req.body.email) {
+      req.body.email = req.body.email.toLowerCase();
+    }
+
     return next();
   };
 
