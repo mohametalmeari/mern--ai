@@ -1,0 +1,29 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "nodemon"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google/generative-ai": "^0.21.0",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "mongoose": "^8.7.1",
+    "nodemailer": "^6.9.15",
+    "replicate": "^1.0.0",
+    "stripe": "^17.2.0"
+  },
+  "devDependencies": {
+    "@babel/node": "^7.25.7",
+    "@babel/preset-env": "^7.25.7",
+    "nodemon": "^3.1.7"
+  }
+}
