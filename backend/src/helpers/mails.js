@@ -20,7 +20,7 @@ export const sendVerificationMail = async (email, token) => {
       },
       to: [email],
       subject: "Verification",
-      html: `<a href="${process.env.FRONTEND_URL}verify/${token}">Verify your email</a>`,
+      html: `<a href="${process.env.FRONTEND_URL}/verify/${token}">Verify your email</a>`,
     };
 
     await transporter.sendMail(options);
