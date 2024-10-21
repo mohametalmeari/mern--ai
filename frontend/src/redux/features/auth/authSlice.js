@@ -98,9 +98,6 @@ const extraReducers = (builder) => {
     });
 
   builder
-    .addCase(checkAuth.pending, (state) => {
-      state.isAuthenticated = undefined;
-    })
     .addCase(checkAuth.rejected, (state) => {
       state.isAuthenticated = false;
     })
