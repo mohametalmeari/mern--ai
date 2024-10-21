@@ -35,5 +35,5 @@ db.on("error", (error) => console.error(error));
 db.once("open", () => console.log("Connected to Database"));
 
 app.listen(4000, () => {
-  console.log("Server is running on http://localhost:4000");
+  console.log(`Server is running on ${process.env.FRONTEND_URL}`);
 });

@@ -20,7 +20,7 @@ export const sendVerificationMail = async (email, token) => {
       },
       to: [email],
       subject: "Verification",
-      html: `<a href="http://localhost:3000/verify/${token}">Verify your email</a>`,
+      html: `<a href="${process.env.FRONTEND_URL}verify/${token}">Verify your email</a>`,
     };
 
     await transporter.sendMail(options);
@@ -38,7 +38,7 @@ export const sendResetPasswordMail = async (email, token) => {
       },
       to: [email],
       subject: "Reset Password",
-      html: `<a href="http://localhost:3000/reset-password/${token}">Reset your password</a>`,
+      html: `<a href="${process.env.FRONTEND_URL}/reset-password/${token}">Reset your password</a>`,
     };
 
     await transporter.sendMail(options);
